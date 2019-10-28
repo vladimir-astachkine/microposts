@@ -1,25 +1,68 @@
 <head>
-  <title>todos</title>
-</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <title>VA ToDo</title>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
 
-  {{> hello}}
- 
+  </head>
+
+  <body>
+   
+
+<main role="main">
+
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">VA ToDoS</h1>
+      {{> loginButtons}}
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-12">
+        <h2>List Of Tasks</h2>
+        {{> main}}
+      </div>  
+    </div>
+
+    <hr>
+
+  </div> <!-- /container -->
+
+</main>
+
+<footer class="container">
+  <p>&copy; VAToDoS 2017-2019</p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+    
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
+<template name="main">
+  {{#if currentUser}}
+  <form class="new-todo">
+    <div class="form-group">
+        <input type="text" name="text" class="form-control" placeholder="Add Up a Todo">
+    </div>
+  </form>
+  {{/if}}
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
   <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+    {{#each todos}}
+    <li class="{{#if checked}}checked{{/if}}">
+      {{#if currentUser}}
+      <button class="delete-todo">&times;</button>
+      <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+      {{/if}} 
+      <span class="text">{{text}}</span>
+    </li>
+    {{/each}}
+    
   </ul>
 </template>
