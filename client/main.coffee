@@ -15,17 +15,18 @@ Template.main.helpers
 Template.main.events
     "submit .new-todo" : (event) ->
         text = event.target.text.value
-        Todos.insert {text : text, createdAt: new Date(), userId: Meteor.userId(), username: Meteor.user().username}
+        Meteor.call 'addTodo', text
         event.target.text.value = ''
 
-        console.log text
+        console.log 'insert command'
         return false
     
     "click .toggle-checked" : ->
-        Todos.update @_id, {$set:{checked: !@checked}}
+        Meteor.call 'setChecked', @_id,  @checked
 
     "click .delete-todo" : ->
         if confirm 'Are you sure?'
-            Todos.remove @_id  
+             Meteor.call 'deleteTodo', @_id
 
 Accounts.ui.config {passwordSignupFields:"USERNAME_ONLY"}
+
