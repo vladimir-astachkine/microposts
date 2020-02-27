@@ -6,7 +6,9 @@ import { Todos } from '../lib/collections'
 import './main.html'
 
 window.Todos = Todos
-Todos.find().fetch()
+#Todos.find().fetch()
+
+Meteor.subscribe 'todos'
 
 Template.main.helpers
     todos : -> Todos.find {}, {sort:{createdAt: -1}}

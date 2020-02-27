@@ -11,7 +11,13 @@ Meteor.methods
             Todos.insert {text : text, createdAt: new Date(), userId: Meteor.userId(), username: Meteor.user().username}
  
     deleteTodo: (todoId) ->
+        myTodo = Todos.findOne(todoId)
+        if myTodo.userId != Meteor.userId() 
+            throw new Meteor.Error 'not-authorized'
         Todos.remove(todoId)
 
     setChecked: (todoId, setChecked) ->
+        myTodo = Todos.findOne(todoId)
+        if myTodo.userId != Meteor.userId() 
+            throw new Meteor.Error 'not-authorized'
         Todos.update todoId, {$set:{checked: ! setChecked}}
